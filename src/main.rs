@@ -1,53 +1,121 @@
-use std::{io, process::exit};
+//! # Rock Paper Scissors Game
+//! 
+//! This program provides a fully interactive implementation
+//! of the classic Rock, Paper, Scissors game.
+
+use std::io;
 use rand::{self, seq::SliceRandom, thread_rng};
 
-fn main() {
+// ====================================
+// 1. DATA STRUCTURES & IMPLEMENTATIONS
+// ====================================
+
+/// Represents the choices available for the player and computer to choose from.
+#[derive(Debug, PartialEq, Clone, Copy)]
+enum Choice {
+        Rock, 
+        Paper,
+        Scissors,
+}
+
+impl Choice {
+    /// Compares the player's choice against the computer's pick
+    /// and returns whether it was a Win, Loss, or Tie.
+    fn check_outcome(self, other: Choice) -> Outcome {
+        if self == other {
+            Outcome::Tie
+        } else {
+            match (self, other) {
+                (Choice::Rock, Choice::Scissors) |
+                (Choice::Paper, Choice::Rock) |
+                (Choice::Scissors, Choice::Paper) => Outcome::Win,
+                _ => Outcome::Loss,
+            }
+        }
+    }
+}
+
+/// Controls whether the game loop should keep running or terminate.
+#[derive(Debug, PartialEq)]
+enum GameState{
+    Continue,
+    Quit,
+}
+
+/// Represents the outcome of a single round from the player's perspective.
+#[derive(Debug, PartialEq)]
+enum Outcome {
+    Win,
+    Loss,
+    Tie,
+}
+
+// ===================
+// 2. HELPER FUNCTIONS
+// ===================
+
+/// Prompts the player for input, cleans it, and maps it safely to a "Choice".
+/// Loops internally until a valid option is provided.
+fn get_player_input() -> Choice {
+    loop{
+        println!("Please decide (rock, paper, scissors):");
+        let mut input = String::new();
+        io::stdin()
+            .read_line(&mut input)
+            .expect("Failed to read line");
+
+        match input.trim().to_lowercase().as_str() {
+            "rock" => return Choice::Rock,
+            "paper" => return Choice::Paper,
+            "scissors" => return Choice::Scissors,
+            _ => println!("Invalid choice, Please type rock, paper or scissors.\n"),
+        }
+    }
+}
+
+/// Asks the player if they want to play another round, returning a "GameState".
+fn get_rematch_status() -> GameState {
     loop {
-        let mut player_input = String::new();
-        let computer_options = ["rock", "paper", "scissors"];
+        println!("Dou you want to play another round (y/n):");
+        let mut input = String::new();
+        io::stdin()
+            .read_line(&mut input)
+            .expect("Failed to read line");
+
+        match input.trim().to_lowercase().as_str() {
+            "y" | "yes" => return GameState::Continue,
+            "n" | "no" | "quit" => return GameState::Quit,
+            _ => println!("Please type 'y' for yes or 'n' for no.\n"),
+        }
+    }
+}
+
+// =================
+// 3. MAIN GAME LOOP
+// =================
+fn main() {
+    println!("Welcome to Rock Paper Scissors!");
+
+    let computer_options = [Choice::Rock, Choice::Paper, Choice::Scissors];
+    loop {
         let mut rng = thread_rng();
-        println!("Welcome to Rock Paper Scissors!");
-        println!("Player, please decide:");
+        
+        let player_choice = get_player_input();
+        let computer_pick =  *computer_options.choose(&mut rng).unwrap();
+         
+        println!("You chose: {:?}", player_choice);
+        println!("Computer chose: {:?}\n", computer_pick);
 
-        io::stdin()
-            .read_line(&mut player_input)
-            .expect("Failed to read input\n");
-
-        let player_input = player_input.trim().to_lowercase();
-
-        if player_input == "rock" || player_input == "paper" || player_input == "scissors" {
-            println!("You chose: {}", player_input);
-        } else {
-            println!("Invalid input, try again.\n");
-            continue;
+        match player_choice.check_outcome(computer_pick) {
+            Outcome::Tie => println!("Its a tie!"),
+            Outcome::Win => println!("You win this round!"),
+            Outcome::Loss => println!("Computer wins this round!"),
+        };
+        
+        if get_rematch_status() == GameState::Quit {
+            println!("Thanks for playing, Bye!");
+            break;
         }
-         let computer_pick: &str = computer_options.choose(&mut rng).unwrap();
-         println!("Computer chose: {}", computer_pick);
-
-        if player_input == computer_pick {
-            println!("Its a draw!\n");
-        }
-        else if (player_input == "rock" && computer_pick == "scissors") ||
-        (player_input == "paper" && computer_pick == "rock") ||
-        (player_input == "scissors" && computer_pick == "paper") {
-            println!("You win!\n");
-        }
-        else {
-            println!("Computer wins!\n")
-        }
-
-        println!("Want to play again? (y(es)/n(o))");
-        let mut play_again = String::new();
-        io::stdin()
-            .read_line(  &mut play_again)
-            .expect("Failed to read input\n");
-        let play_again = play_again.trim().to_lowercase();
-        if play_again == "yes" || play_again == "y" {
-            println!("\n");
-            continue;
-        } else {
-            println!("Goodbye!");
-            exit(0);
-        }
+        println!("\n");
     }
  }
