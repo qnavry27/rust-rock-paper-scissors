@@ -1,10 +1,9 @@
-# rust-rock-paper-scissors
-Simple Rock Paper Scissors Game against the computer build in Rust.
-
+# rust-rock-paper-scissors v2
+Refactored Rock Paper Scissors Game against the computer build in Rust.
+Beginner Variant see:https://github.com/qnavry27/rust-rock-paper-scissors/tree/main h
 # Tasks
-- [x] Setup Rust Project Structure - https://github.com/qnavry27/rust-rock-paper-scissors/commit/cb72b711769138bb201d8907e96755e5e19793a7
-- [x] Input / Error Handling - https://github.com/qnavry27/rust-rock-paper-scissors/commit/ae30cfb6fa6b32c319f6f79c5ad6d7f22ca78e69
-- [x] Generate Random Move for Computer - https://github.com/qnavry27/rust-rock-paper-scissors/commit/65e88a2a22c56a6baaad3b9c9797840906327880
-- [ ] Setup Game Logic - https://github.com/qnavry27/rust-rock-paper-scissors/issues/6
-- [ ] Game Loop - https://github.com/qnavry27/rust-rock-paper-scissors/issues/3
-- [ ] Polish / Refine / Improve Game / Code Structure - https://github.com/qnavry27/rust-rock-paper-scissors/issues/5
+- [x] Use enum for GameState (Continue Playing or Quit)
+- [x] Use enum for Player/Computer choice (Rock, Paper or Scissor)
+- [x] Use enum to for Win/Loss/Tie
+- [x] Move Game Logic into separate functions.
+- [x] Use Method for Choice to determine in a function who won this round
