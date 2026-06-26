@@ -7,4 +7,4 @@ Simple Rock Paper Scissors Game against the computer build in Rust.
 - [x] Generate Random Move for Computer - https://github.com/qnavry27/rust-rock-paper-scissors/commit/65e88a2a22c56a6baaad3b9c9797840906327880
 - [x] Setup Game Logic - https://github.com/qnavry27/rust-rock-paper-scissors/commit/635ee6b3158c9e53db9ad293554267feb24d4396
 - [x] Game Loop - https://github.com/qnavry27/rust-rock-paper-scissors/commit/635ee6b3158c9e53db9ad293554267feb24d4396
-- [ ] Polish / Refine / Improve Game / Code Structure - https://github.com/qnavry27/rust-rock-paper-scissors/issues/5 - See: https://github.com/qnavry27/rust-rock-paper-scissors/tree/rock-paper-scissor-v2
+- [x] Polish / Refine / Improve Game / Code Structure - See: https://github.com/qnavry27/rust-rock-paper-scissors/tree/rock-paper-scissor-v2
