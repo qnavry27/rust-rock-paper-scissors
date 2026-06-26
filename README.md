@@ -1,6 +1,8 @@
 # rust-rock-paper-scissors
 Simple Rock Paper Scissors Game against the computer build in Rust.
 
+If you are interested in a refactored version using Methods, enums, functions check out the v2 of this program in the other branch => https://github.com/qnavry27/rust-rock-paper-scissors/tree/rock-paper-scissor-v2
+
 # Tasks
 - [x] Setup Rust Project Structure - https://github.com/qnavry27/rust-rock-paper-scissors/commit/cb72b711769138bb201d8907e96755e5e19793a7
 - [x] Input / Error Handling - https://github.com/qnavry27/rust-rock-paper-scissors/commit/ae30cfb6fa6b32c319f6f79c5ad6d7f22ca78e69
